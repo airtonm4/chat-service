@@ -1,6 +1,16 @@
-import express from "express"
+import express, { response } from "express"
 
 
 const app = express()
 
-app.listen(6666, () => {console.log("Server is running on 6666")})
+app.get("/", (resquest, response) => {
+    return response.json({
+        message:"Hello World"
+    })
+})
+app.get("/users", (resquest, response) => {
+    return response.json({
+        users: "Airton Martins"
+    })
+})
+app.listen(3333, () => console.log("Server is running on port 3333"))
