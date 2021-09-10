@@ -8,7 +8,7 @@ app.get("/", (resquest, response) => {
         message:"Hello World"
     })
 })
-app.get("/users", (resquest, response) => {
+app.post("/users", (resquest, response) => {
     return response.json({
         users: "Airton Martins"
     })
