@@ -1,5 +1,5 @@
 import express, { response } from "express"
-
+import "./database"
 
 const app = express()
 
@@ -13,4 +13,5 @@ app.post("/users", (resquest, response) => {
         users: "Airton Martins"
     })
 })
+
 app.listen(3333, () => console.log("Server is running on port 3333"))
