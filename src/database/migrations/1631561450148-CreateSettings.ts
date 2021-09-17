@@ -1,6 +1,6 @@
 import {MigrationInterface, PrimaryColumn, QueryRunner, Table} from "typeorm";
 
-export class CrateSettings1631561450148 implements MigrationInterface {
+export class CreateSettings1631561450148 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(

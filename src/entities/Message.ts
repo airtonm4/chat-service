@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid"
 import { User } from "./User"
 
 
-@Entity()
+@Entity("messages")
 class Message {
     @PrimaryColumn()
     id: string
