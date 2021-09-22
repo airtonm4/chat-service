@@ -13,6 +13,9 @@ routes.post("/settings", settingsController.create)
 routes.post("/users", usersController.create)
 routes.post("/messages", messagesController.create)
 
+routes.put("/settings/:username", settingsController.update)
+
 routes.get("/messages/:id", messagesController.showByUser)
+routes.get("/settings/:username", settingsController.findByUsername)
 
 export { routes }
