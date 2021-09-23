@@ -43,10 +43,10 @@ function call(id) {
                 createDiv.className = "admin_message_client"
 
                 createDiv.innerHTML = `<span>${connection.user.email}</span>`
-                createDiv.innerHTML += `<span>${message.text}</span>`                
+                createDiv.innerHTML += `<span>${message.text}</span>`
                 createDiv.innerHTML += `<span class= "admin-date">${dayjs(message.created_at).format("DD/MM/YYYY HH:mm:ss")}`
             } else {
-                crateDiv.className = "admin_message_admin"
+                createDiv.className = "admin_message_admin"
 
                 createDiv.innerHTML = `Atendente <span>${message.text}</span>`
                 createDiv.innerHTML += `<span class= "admin-date">${dayjs(message.created_at).format("DD/MM/YYYY HH:mm:ss")}`
@@ -57,3 +57,15 @@ function call(id) {
     })
 }
 
+
+function sendMessage(id) {
+    const text = document.getElementById(`send_message_${id}`)
+
+    const params = {
+        text: text.value,
+        user_id: id
+    }
+
+    socket.emit("admin_send_message", params)
+
+}

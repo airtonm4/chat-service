@@ -1,5 +1,5 @@
 document.querySelector("#start_chat").addEventListener("click", (event) => {
-    socket = io();
+    const socket = io();
 
     const chat_help = document.getElementById("chat_help");
     chat_help.style.display = "none";
