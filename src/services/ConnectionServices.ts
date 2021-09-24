@@ -2,7 +2,7 @@ import { getCustomRepository, Repository } from "typeorm";
 import { ConnectionsRepository } from "../repositories/connectionsRespository";
 import { Connection } from "../entities/Connection"
 
-interface IConnetion{
+interface IConnetion {
     socket_id: string,
     user_id: string,
     admin_id?: string,
@@ -10,12 +10,12 @@ interface IConnetion{
 }
 class ConnectionsServices {
     private connectionRepository: Repository<Connection>
-    
+
     constructor() {
         this.connectionRepository = getCustomRepository(ConnectionsRepository)
     }
 
-    async create({socket_id, user_id, admin_id, id} : IConnetion){
+    async create({ socket_id, user_id, admin_id, id }: IConnetion) {
         const connection = this.connectionRepository.create({
             socket_id,
             user_id,
@@ -25,17 +25,25 @@ class ConnectionsServices {
         await this.connectionRepository.save(connection)
     }
 
-    async findByUserId(user_id: string){
+    async findByUserId(user_id: string) {
         const connection = await this.connectionRepository.findOne({
             user_id
         })
         return connection
     }
 
-    async findWithoutAdmin(){
+    async findWithoutAdmin() {
         const connection = this.connectionRepository.find({
-            where: { admin_id : null},
+            where: { admin_id: null },
             relations: ["user"]
+        })
+
+        return connection
+    }
+
+    async findBySocketID(socket_id: string) {
+        const connection = this.connectionRepository.findOne({
+            socket_id
         })
 
         return connection
