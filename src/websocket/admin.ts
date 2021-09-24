@@ -19,7 +19,7 @@ io.on("connect", async (socket) => {
     })
 
     socket.on("admin_send_message", async params => {
-        const { user_id, text } = params
+        const { text, user_id} = params
 
         await messagesServices.create({
             text,
@@ -31,7 +31,7 @@ io.on("connect", async (socket) => {
 
         io.to(socket_id).emit("admin_send_to_client", {
             text,
-            socket: socket_id
+            socket_id: socket.id
         })
     })
 })
