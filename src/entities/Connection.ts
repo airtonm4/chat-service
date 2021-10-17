@@ -5,10 +5,10 @@ import { User } from "./User"
 @Entity("connections")
 class Connection {
     @PrimaryColumn()
-    id:string
+    id: string
 
     @Column()
-    admin_id:string
+    admin_id: string
 
     @JoinColumn({ name: "user_id" })
     @ManyToOne(() => User)
@@ -26,7 +26,7 @@ class Connection {
     @UpdateDateColumn()
     updated_at: Date
 
-    constructor(){
+    constructor() {
         if (!this.id) {
             this.id = uuid()
         }

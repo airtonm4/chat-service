@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { SettingsServices } from "../services/SettingsServices"
 
 class SettingsControllers {
-    async create(request: Request, response: Response){
-        const {chat, username} = request.body;
+    async create(request: Request, response: Response) {
+        const { chat, username } = request.body;
 
         const settingsServices = new SettingsServices();
 
@@ -18,7 +18,7 @@ class SettingsControllers {
 
         }
     }
-    async findByUsername(request: Request, response: Response){
+    async findByUsername(request: Request, response: Response) {
         const { username } = request.params
 
         const settingsServices = new SettingsServices();
@@ -29,7 +29,7 @@ class SettingsControllers {
     }
 
 
-    async update(request: Request, response: Response){
+    async update(request: Request, response: Response) {
         const { username } = request.params
         const { chat } = request.body
 
@@ -39,7 +39,7 @@ class SettingsControllers {
 
         return response.json(settings)
     }
-    
+
 }
 
-export { SettingsControllers}
+export { SettingsControllers }

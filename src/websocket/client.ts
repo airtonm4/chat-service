@@ -1,7 +1,7 @@
 import { io } from "../http"
 import { ConnectionsServices } from "../services/ConnectionServices"
 import { MessagesServices } from "../services/MessagesServices"
-import { UsersService} from "../services/UsersServices"
+import { UsersService } from "../services/UsersServices"
 
 io.on("connect", (socket) => {
     const connectionsServices = new ConnectionsServices()
@@ -9,7 +9,7 @@ io.on("connect", (socket) => {
     const messagesServices = new MessagesServices()
     let user_id = null
 
-    interface IParams{
+    interface IParams {
         email: string,
         text: string
     }
@@ -22,14 +22,14 @@ io.on("connect", (socket) => {
 
         if (!userExists) {
             const user = await userService.create(email)
-            
+
             await connectionsServices.create({
                 socket_id,
                 user_id: user.id
             })
 
             user_id = user.id
-        }else{
+        } else {
             user_id = userExists.id
             const connection = await connectionsServices.findByUserId(userExists.id)
             if (!connection) {
@@ -37,7 +37,7 @@ io.on("connect", (socket) => {
                     socket_id,
                     user_id: userExists.id
                 })
-            }else{
+            } else {
                 connection.socket_id = socket_id
 
                 await connectionsServices.create(connection)
@@ -52,10 +52,14 @@ io.on("connect", (socket) => {
         const allMessages = await messagesServices.listByUser(user_id)
 
         socket.emit("client_list_all_messages", allMessages)
+
+        const allUsers = await connectionsServices.findWithoutAdmin()
+
+        io.emit("admin_list_all_users", allUsers)
     })
 
     socket.on("client_message_to_admin", async params => {
-        const { text, socketAdminId} = params
+        const { text, socketAdminId } = params
 
         const socket_id = socket.id
 

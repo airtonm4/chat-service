@@ -3,6 +3,6 @@ import { Message } from "../entities/Message";
 
 
 @EntityRepository(Message)
-class MessagesRespository extends Repository<Message>{}
+class MessagesRespository extends Repository<Message>{ }
 
-export{ MessagesRespository }
+export { MessagesRespository }

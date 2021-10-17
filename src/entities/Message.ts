@@ -17,14 +17,14 @@ class Message {
     @JoinColumn({ name: "user_id" })
     @ManyToOne(() => User)
     user: User;
-    
+
     @Column()
     user_id: string
 
     @CreateDateColumn()
     created_at: Date
 
-    constructor(){
+    constructor() {
         if (!this.id) {
             this.id = uuid()
         }
@@ -32,4 +32,4 @@ class Message {
 
 }
 
-export {Message}
+export { Message }

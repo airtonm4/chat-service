@@ -2,7 +2,7 @@ import { getCustomRepository, Repository } from "typeorm"
 import { Setting } from "../entities/Setting"
 import { SettingsRepository } from "../repositories/settingsRepository"
 
-interface SettingsCreate{
+interface SettingsCreate {
     chat: boolean,
     username: string
 }
@@ -10,10 +10,10 @@ interface SettingsCreate{
 class SettingsServices {
     private settingsRepository: Repository<Setting>
 
-    constructor(){
+    constructor() {
         this.settingsRepository = getCustomRepository(SettingsRepository)
     }
-    async create ({ chat, username } : SettingsCreate) {
+    async create({ chat, username }: SettingsCreate) {
         // Select * from settings where username = "username" limit 1;
         const userAlreadyExist = await this.settingsRepository.findOne({
             username
@@ -22,28 +22,29 @@ class SettingsServices {
         if (userAlreadyExist) {
             throw new Error("User already exist.")
         }
-    
+
         const settings = this.settingsRepository.create({
             chat,
             username
         })
-        
+
         await this.settingsRepository.save(settings)
 
         return (settings)
     }
-    async findByUsername(username: string){
+    async findByUsername(username: string) {
         const settings = await this.settingsRepository.findOne({
             username
         })
         return settings
     }
 
-    async update(username: string, chat: boolean){
+    async update(username: string, chat: boolean) {
         await this.settingsRepository.createQueryBuilder().update(Setting).set({ chat })
-        .where("username = :username", {username
-        }).execute()
+            .where("username = :username", {
+                username
+            }).execute()
     }
 }
 
-export {SettingsServices}
+export { SettingsServices }

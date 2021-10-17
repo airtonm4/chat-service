@@ -2,7 +2,7 @@ import { getCustomRepository, Repository } from "typeorm"
 import { Message } from "../entities/Message"
 import { MessagesRespository } from "../repositories/messagesRepository"
 
-interface IMessagesCreate{
+interface IMessagesCreate {
     admin_id?: string // Caso o Admin não for preenchido para o controller a aplicação continua
     text: string
     user_id: string
@@ -11,10 +11,10 @@ interface IMessagesCreate{
 class MessagesServices {
     private messagesRepository: Repository<Message>
 
-    constructor(){
+    constructor() {
         this.messagesRepository = getCustomRepository(MessagesRespository)
     }
-    async create( { admin_id, text, user_id } : IMessagesCreate){
+    async create({ admin_id, text, user_id }: IMessagesCreate) {
         const message = this.messagesRepository.create({
             admin_id,
             text,
@@ -26,15 +26,15 @@ class MessagesServices {
         return message
     }
 
-    async listByUser(user_id: string){
+    async listByUser(user_id: string) {
         const list = await this.messagesRepository.find({
             where: { user_id },
-            relations: [ "user" ]
+            relations: ["user"]
         })
 
         return list
     }
-    
+
 }
 
 export { MessagesServices }

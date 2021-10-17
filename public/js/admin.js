@@ -33,6 +33,8 @@ function call(id) {
         user_id: connection.user.id
     }
 
+    socket.emit("user_in_suppport", params)
+
     socket.emit("admin_list_message_by_user", params, messages => {
         const divMessages = document.getElementById(`allMessages${connection.user_id}`)
 
@@ -84,7 +86,7 @@ function sendMessage(id) {
 socket.on("admin_receive_message", data => {
     console.log(data)
     const connection = connectionUser.find(connection => connection.socket_id = data.socket_id)
-    const divMessages =  document.getElementById(`allMessages${connection.user_id}`)
+    const divMessages = document.getElementById(`allMessages${connection.user_id}`)
     const createDiv = document.createElement("div")
 
     createDiv.className = "admin_message_client"
